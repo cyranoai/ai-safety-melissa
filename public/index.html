@@ -641,8 +641,8 @@ body::after {
 <hr class="section-divider">
 <section class="page-section" id="framing">
   <div class="section-eyebrow">The Gap</div>
-  <h2 class="section-h2">Why media narratives diverge from the technical literature</h2>
-  <p class="section-intro">Content optimized for engagement preferentially selects vivid, emotionally activating scenarios. The technical literature on AI safety is predominantly probabilistic, conditional, and bounded — it quantifies failure rates under specific conditions rather than asserting inevitable catastrophe. The gap between public perception and the research record is one of framing, not fact.</p>
+  <h2 class="section-h2">Why what you read in the news differs from what researchers actually publish</h2>
+  <p class="section-intro">Stories optimized for clicks favor vivid, worst-case scenarios. The research literature on AI safety is careful, conditional, and specific — it measures failure rates under defined conditions rather than predicting inevitable catastrophe. The gap between public perception and the research record is one of framing, not fact.</p>
 
   <div class="two-col">
     <div class="frame-card media">
@@ -658,7 +658,7 @@ body::after {
   <div class="callout cyan-glow">
     <div class="callout-label">The Key Distinction</div>
     <h3>The risks serious alignment researchers discuss are real but narrowly specified.</h3>
-    <p>They are not the anthropomorphized, goal-seeking adversaries depicted in popular media. They are engineering problems — reward hacking under distributional shift, sycophancy from biased training signal, over-refusal from superficial pattern matching — each with documented mitigation strategies and measurable progress metrics.</p>
+    <p>They are not the scheming, goal-driven adversaries depicted in popular media. They are engineering problems — an AI locking onto the wrong training target when real-world conditions differ from what it trained on, agreeing with users even when they're wrong, refusing harmless requests because they superficially resemble harmful ones — each with documented fixes and measurable progress.</p>
   </div>
 </section>
 
@@ -685,7 +685,7 @@ body::after {
         <div class="myth-face myth-back">
           <div>
             <span class="myth-tag">Research studies</span>
-            <div class="myth-finding">Reward hacking under distributional shift: AI optimizes the wrong target metric. Not autonomous self-interest — a training specification error. Documented, bounded, correctable by adjusting the reward function.</div>
+            <div class="myth-finding">Training objective mismatch: the AI optimizes for the wrong target when real-world conditions differ from what it trained on. Not autonomous self-interest — a specification error. Documented, bounded, correctable by retraining.</div>
           </div>
           <div>
             <div class="myth-footer">Krakovna et al. 2020 (NeurIPS); Skalse et al. 2022 (NeurIPS) · Tap to flip back</div>
@@ -778,7 +778,7 @@ body::after {
     <!-- ① 82% -->
     <div class="stat-card">
       <div class="stat-number">~82%</div>
-      <div class="stat-title">Drop in harmful outputs — Constitutional AI vs. RLHF baseline</div>
+      <div class="stat-title">Drop in harmful outputs — new training method vs. the previous standard</div>
       <div class="stat-plain">Researchers built two versions of the same AI and deliberately prompted both with thousands of harmful requests. The older method (RLHF alone) failed 100 times. The newer method (Constitutional AI) failed fewer than 18. Controlled experiment: before group, after group, measurement.</div>
       <button class="expand-btn" onclick="toggleDive(this)">See the experiment ↓</button>
       <div class="deep-dive">
@@ -816,7 +816,7 @@ body::after {
       <div class="deep-dive">
         <div class="deep-dive-inner">
           <div class="deep-label">Methodology</div>
-          <p>Neural networks encode more features than they have neurons by representing concepts as directions in high-dimensional space — not as individual neurons. This is called superposition (Elhage et al. 2022). Sparse autoencoders can decompose these overlapping representations into monosemantic (single-concept) features.</p>
+          <p>AI models pack far more concepts into their weights than they have individual neurons — by encoding concepts as patterns distributed across many neurons simultaneously, rather than one neuron per idea. Researchers built specialized tools (sparse autoencoders) to untangle these overlapping patterns and isolate individual concepts.</p>
           <p>Templeton et al. (2024) applied this at scale to Claude 3 Sonnet. A cluster of features activating on the token "Assistant" encoded themes of restriction and confinement — an interpretability finding with direct safety implications. Experimental steering of these features produced measurable, predictable behavioral change.</p>
           <span class="deep-cite">Templeton et al. 2024 · Anthropic · Scaling Monosemanticity; Elhage et al. 2022</span>
         </div>
@@ -864,8 +864,8 @@ body::after {
       <div class="deep-dive">
         <div class="deep-dive-inner">
           <div class="deep-label">Methodology</div>
-          <p>This is representation engineering (Zou et al. 2023). Specific behavioral properties — honesty, harm avoidance, emotional valence — correspond to identifiable linear directions in the model's activation space. This is a geometric fact about how the model encodes information, not a metaphor.</p>
-          <p>By projecting model activations onto these directions during inference, researchers can detect when a model is approaching a harmful output region and steer activations away in real time. The 43% reduction is the improvement from this internal monitoring layer on top of standard prompt-level defenses. The experiment was specifically designed to make the AI fail — and monitoring halved the success rate.</p>
+          <p>This is representation engineering (Zou et al. 2023). Specific behavioral properties — honesty, harm avoidance, emotional state — correspond to measurable directions inside the model's internal state space. This is a concrete mathematical fact about how the model encodes information, not a metaphor.</p>
+          <p>Researchers can monitor these directions as the model runs, detect when it's moving toward a harmful output, and redirect it in real time — before the output ever appears. The 43% reduction is the improvement from this internal monitoring layer on top of standard input-level defenses. The experiment was specifically designed to make the AI fail — and monitoring cut the success rate nearly in half.</p>
           <span class="deep-cite">Zou et al. 2023 · arXiv:2310.01405 · Representation Engineering</span>
         </div>
       </div>
@@ -918,14 +918,14 @@ body::after {
 <!-- ════════════════════════════════ INSIDE THE AI ═══ -->
 <hr class="section-divider">
 <section class="page-section" id="inside">
-  <div class="section-eyebrow purple">Mechanistic Interpretability</div>
-  <h2 class="section-h2">How much of the AI's reasoning can researchers see inside?</h2>
-  <p class="section-intro">Mechanistic interpretability is the program of reverse-engineering the internal computations of neural networks. The closest analogy: it is to AI what fMRI-based functional mapping is to neuroscience — reading activation states rather than just observing behavior.</p>
+  <div class="section-eyebrow purple">Inside the Black Box</div>
+  <h2 class="section-h2">How much of the AI's reasoning can researchers actually see?</h2>
+  <p class="section-intro">Mechanistic interpretability is the science of reading what's happening inside an AI while it reasons — not just watching what it outputs. The closest analogy: it's to AI what brain scanning is to neuroscience. Instead of asking "what did the AI do," researchers ask "what was it doing internally when it did it."</p>
 
   <div class="interp-list">
     <div class="interp-item" data-pct="65" data-color="#10B981">
       <div class="interp-row">
-        <div class="interp-label">Small models — complete circuit-level account</div>
+        <div class="interp-label">Smaller models — reasoning circuits fully mapped and verified</div>
         <div class="interp-pct" style="color: #10B981;">65%</div>
       </div>
       <div class="interp-sub">Olsson et al. 2022 — specific reasoning circuits fully mapped and causally verified by ablation experiments</div>
@@ -933,7 +933,7 @@ body::after {
     </div>
     <div class="interp-item" data-pct="55" data-color="#00CFFF">
       <div class="interp-row">
-        <div class="interp-label">Behavioral steering from internal intervention</div>
+        <div class="interp-label">Changing AI behavior by adjusting its internal states directly</div>
         <div class="interp-pct" style="color: #00CFFF;">55%</div>
       </div>
       <div class="interp-sub">Zou et al. 2023 — researchers can change AI behavior by adjusting internal activation states directly</div>
@@ -941,7 +941,7 @@ body::after {
     </div>
     <div class="interp-item" data-pct="45" data-color="#F5A623">
       <div class="interp-row">
-        <div class="interp-label">Frontier models — feature-level identification</div>
+        <div class="interp-label">Large frontier models — individual concepts identified</div>
         <div class="interp-pct" style="color: #F5A623;">45%</div>
       </div>
       <div class="interp-sub">Templeton et al. 2024 — 34 million distinct concepts identified in Claude 3 Sonnet</div>
@@ -949,7 +949,7 @@ body::after {
     </div>
     <div class="interp-item" data-pct="9" data-color="#8B5CF6">
       <div class="interp-row">
-        <div class="interp-label">Frontier models — full causal circuit account</div>
+        <div class="interp-label">Large frontier models — complete internal map (active research frontier)</div>
         <div class="interp-pct" style="color: #8B5CF6;">9%</div>
       </div>
       <div class="interp-sub">Active frontier — too large for complete mapping yet; research is accelerating rapidly across multiple labs</div>
@@ -1017,7 +1017,7 @@ body::after {
 <section class="page-section" id="cooperation">
   <div class="section-eyebrow emerald">Behavioral Training</div>
   <h2 class="section-h2">How training changes AI behavior in competitive settings</h2>
-  <p class="section-intro">The framing of AI as inherently adversarial mischaracterizes the training objective. RLHF and Constitutional AI explicitly optimize for outputs rated as more helpful, honest, and less harmful. Cooperative behavior is the training target — adversarial behavior is the failure mode being measured and reduced.</p>
+  <p class="section-intro">The framing of AI as inherently adversarial mischaracterizes how it's trained. Both major training methods explicitly reward outputs rated as more helpful, honest, and less harmful. Cooperative behavior is what training is designed to produce — adversarial behavior is the failure mode being measured and reduced.</p>
 
   <div class="table-wrap">
     <table class="data-table">
@@ -1055,8 +1055,8 @@ body::after {
 
   <div class="callout cyan-glow">
     <div class="callout-label">Why This Works</div>
-    <h3>Cooperation is the gradient direction — not an emergent accident.</h3>
-    <p>The Melting Pot benchmark (Leibo et al., 2021, ICML) tested 21 distinct social situations — public goods problems, coordination games, commons dilemmas. Agents trained with pure reward maximization reached cooperative equilibria in 7 of 21 scenarios. RLHF-trained agents reached them in 16 of 21. The mechanism is well-understood: RLHF's human preference signal implicitly encodes social norms because human raters prefer cooperative outputs. Every time a rater said "this response is more helpful and less harmful," they cast a vote that changed the model's behavior. Multiplied across millions of examples, that signal produces a 76–81% cooperation rate in controlled competitive tests.</p>
+    <h3>Cooperation is built into the training objective — not an emergent accident.</h3>
+    <p>The Melting Pot benchmark (Leibo et al., 2021, ICML) tested 21 distinct social situations — sharing problems, coordination games, collective resource dilemmas. Agents trained with pure reward maximization found cooperative outcomes in 7 of 21 scenarios. Agents trained with human feedback reached them in 16 of 21. The reason is straightforward: human raters consistently prefer helpful, cooperative responses — and that preference gets baked into the model across millions of training examples. Every time a rater said "this response is more helpful and less harmful," they cast a vote that changed the model's behavior. Multiplied across millions of examples, that signal produces a 76–81% cooperation rate in controlled competitive tests.</p>
   </div>
 </section>
 
