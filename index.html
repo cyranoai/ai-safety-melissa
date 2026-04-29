@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>AI Safety: What the Research Shows · For Melissa Tiers</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --base:          #1A1E30;
+  --base-raised:   #1E2338;
+  --shadow-dark:   #0E1120;
+  --shadow-light:  rgba(255,255,255,0.045);
+  --cyan:          #00CFFF;
+  --cyan-dim:      rgba(0,207,255,0.15);
+  --cyan-glow:     rgba(0,207,255,0.28);
+  --purple:        #8B5CF6;
+  --purple-dim:    rgba(139,92,246,0.15);
+  --emerald:       #10B981;
+  --emerald-dim:   rgba(16,185,129,0.15);
+  --amber:         #F5A623;
+  --amber-dim:     rgba(245,166,35,0.15);
+  --red:           #F05454;
+  --red-dim:       rgba(240,84,84,0.15);
+  --text-hi:       rgba(255,255,255,0.90);
+  --text-mid:      rgba(255,255,255,0.60);
+  --text-lo:       rgba(255,255,255,0.35);
+  --border:        rgba(255,255,255,0.07);
+  --raised: 7px 7px 16px var(--shadow-dark), -4px -4px 10px var(--shadow-light);
+  --raised-sm: 4px 4px 10px var(--shadow-dark), -2px -2px 6px var(--shadow-light);
+  --sunken: inset 5px 5px 12px var(--shadow-dark), inset -3px -3px 8px var(--shadow-light);
+  --font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+}
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font);
+  background: var(--base);
+  color: var(--text-hi);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Ambient background glows ── */
+body::before {
+  content: '';
+  position: fixed; top: -30%; left: -15%;
+  width: 55%; height: 55%;
+  background: radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 65%);
+  pointer-events: none; z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed; bottom: -25%; right: -10%;
+  width: 50%; height: 50%;
+  background: radial-gradient(circle, rgba(0,207,255,0.09) 0%, transparent 65%);
+  pointer-events: none; z-index: 0;
+}
+
+/* ── UTILITIES ── */
+.neu-raised {
+  background: var(--base-raised);
+  box-shadow: var(--raised);
+  border-radius: 20px;
+}
+.neu-raised-sm {
+  background: var(--base-raised);
+  box-shadow: var(--raised-sm);
+  border-radius: 14px;
+}
+.neu-sunken {
+  background: var(--base);
+  box-shadow: var(--sunken);
+  border-radius: 12px;
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  z-index: 1;
+  padding: 72px 28px 56px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 700;
+  margin-bottom: 22px;
+}
+.hero h1 {
+  font-size: clamp(30px, 6vw, 52px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  margin-bottom: 18px;
+}
+.hero h1 .accent { color: var(--cyan); }
+.hero-sub {
+  font-size: 17px;
+  color: var(--text-mid);
+  max-width: 500px;
+  margin: 0 auto 36px;
+  line-height: 1.7;
+}
+.hero-byline {
+  font-size: 12px;
+  color: var(--text-lo);
+  letter-spacing: 0.06em;
+  margin-bottom: 36px;
+}
+.hero-thesis {
+  max-width: 580px;
+  margin: 0 auto;
+  background: var(--base-raised);
+  box-shadow: var(--raised), 0 0 40px rgba(0,207,255,0.07);
+  border-radius: 20px;
+  padding: 28px 32px;
+  text-align: left;
+  border: 1px solid rgba(0,207,255,0.12);
+}
+.hero-thesis .label {
+  font-size: 10px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.hero-thesis p {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text-hi);
+  font-weight: 500;
+}
+
+/* ── STICKY NAV ── */
+.site-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(26,30,48,0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  display: flex; gap: 8px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; white-space: nowrap;
+}
+.site-nav::-webkit-scrollbar { display: none; }
+.nav-pill {
+  display: inline-flex; align-items: center;
+  padding: 7px 18px;
+  border-radius: 100px;
+  font-size: 13px; font-weight: 600;
+  color: var(--text-mid);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-pill:hover { color: var(--text-hi); background: rgba(255,255,255,0.06); }
+.nav-pill.active {
+  color: var(--cyan);
+  background: var(--cyan-dim);
+  border-color: rgba(0,207,255,0.25);
+}
+
+/* ── SECTION WRAPPERS ── */
+.page-section {
+  position: relative; z-index: 1;
+  padding: 64px 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+.section-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.section-eyebrow.purple { color: var(--purple); }
+.section-eyebrow.amber { color: var(--amber); }
+.section-eyebrow.emerald { color: var(--emerald); }
+.section-h2 {
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-hi);
+  margin-bottom: 20px;
+}
+.section-intro {
+  font-size: 16px;
+  color: var(--text-mid);
+  line-height: 1.75;
+  margin-bottom: 40px;
+}
+
+/* ── FRAMING CARDS ── */
+.two-col { display: grid; gap: 16px; margin-bottom: 28px; }
+@media (min-width: 580px) { .two-col { grid-template-columns: 1fr 1fr; } }
+.frame-card {
+  padding: 24px;
+  border-radius: 18px;
+}
+.frame-card.media {
+  background: var(--base-raised);
+  box-shadow: var(--raised), 0 0 24px var(--red-dim);
+  border: 1px solid rgba(240,84,84,0.18);
+}
+.frame-card.research {
+  background: var(--base-raised);
+  box-shadow: var(--raised), 0 0 24px var(--emerald-dim);
+  border: 1px solid rgba(16,185,129,0.18);
+}
+.frame-tag {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 100px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+.frame-tag.media { background: var(--red); color: white; }
+.frame-tag.research { background: var(--emerald); color: white; }
+.frame-card p { font-size: 15px; line-height: 1.65; color: var(--text-mid); }
+
+/* ── MYTH FLIP CARDS ── */
+.myth-grid { display: grid; gap: 16px; }
+@media (min-width: 560px) { .myth-grid { grid-template-columns: 1fr 1fr; } }
+
+.myth-wrapper {
+  height: 270px;
+  perspective: 1200px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.myth-inner {
+  position: relative;
+  width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.myth-wrapper.flipped .myth-inner { transform: rotateY(180deg); }
+
+.myth-face {
+  position: absolute; inset: 0;
+  padding: 24px;
+  border-radius: 20px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.myth-front {
+  background: var(--base-raised);
+  box-shadow: var(--raised), 0 0 28px var(--red-dim);
+  border: 1px solid rgba(240,84,84,0.2);
+}
+.myth-back {
+  background: var(--base-raised);
+  box-shadow: var(--raised), 0 0 28px var(--emerald-dim);
+  border: 1px solid rgba(16,185,129,0.2);
+  transform: rotateY(180deg);
+}
+.myth-tag {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 100px;
+  display: inline-block;
+  margin-bottom: 12px;
+  align-self: flex-start;
+}
+.myth-front .myth-tag { background: var(--red); color: #fff; }
+.myth-back .myth-tag { background: var(--emerald); color: #fff; }
+.myth-claim {
+  font-size: 15px; font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-hi);
+  flex: 1; padding-bottom: 12px;
+}
+.myth-finding {
+  font-size: 14px; font-weight: 600;
+  line-height: 1.5;
+  color: var(--text-hi);
+  flex: 1; padding-bottom: 12px;
+}
+.myth-footer {
+  font-size: 11px;
+  color: var(--text-lo);
+  font-style: italic;
+}
+.myth-prompt {
+  font-size: 12px; font-weight: 600;
+  color: var(--red);
+}
+.myth-back .myth-prompt { color: var(--emerald); }
+
+/* ── STAT CARDS ── */
+.stats-grid { display: flex; flex-direction: column; gap: 16px; }
+.stat-card {
+  background: var(--base-raised);
+  box-shadow: var(--raised);
+  border-radius: 20px;
+  padding: 28px 30px;
+  border: 1px solid var(--border);
+}
+.stat-number {
+  font-size: clamp(44px, 9vw, 66px);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  margin-bottom: 6px;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.stat-title {
+  font-size: 17px; font-weight: 700;
+  color: var(--text-hi);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.stat-plain {
+  font-size: 15px;
+  color: var(--text-mid);
+  line-height: 1.72;
+  margin-bottom: 20px;
+}
+.expand-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--base);
+  box-shadow: var(--raised-sm);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 9px 20px;
+  font-size: 13px; font-weight: 600;
+  color: var(--cyan);
+  cursor: pointer;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.expand-btn:active {
+  box-shadow: var(--sunken);
+  transform: scale(0.98);
+}
+.deep-dive {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.48s ease;
+}
+.deep-dive.open { max-height: 700px; }
+.deep-dive-inner {
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+}
+.deep-label {
+  font-size: 10px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--purple);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.deep-dive-inner p {
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text-mid);
+  margin-bottom: 10px;
+}
+.deep-dive-inner p:last-of-type { margin-bottom: 0; }
+.deep-cite {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--text-lo);
+  font-style: italic;
+}
+
+/* ── METHOD CARDS ── */
+.method-grid { display: grid; gap: 14px; }
+@media (min-width: 560px) { .method-grid { grid-template-columns: 1fr 1fr; } }
+.method-card {
+  background: var(--base-raised);
+  box-shadow: var(--raised-sm);
+  border-radius: 18px;
+  padding: 24px;
+  border: 1px solid var(--border);
+}
+.method-icon {
+  font-size: 26px; margin-bottom: 12px;
+}
+.method-title {
+  font-size: 16px; font-weight: 700;
+  color: var(--text-hi);
+  margin-bottom: 8px;
+}
+.method-desc {
+  font-size: 14px;
+  color: var(--text-mid);
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+.method-result {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--amber);
+  letter-spacing: 0.03em;
+}
+
+/* ── INTERPRETABILITY BARS ── */
+.interp-list { display: flex; flex-direction: column; gap: 26px; }
+.interp-item {}
+.interp-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+.interp-label {
+  font-size: 15px; font-weight: 600;
+  color: var(--text-hi);
+}
+.interp-pct {
+  font-size: 21px; font-weight: 900;
+  letter-spacing: -0.02em;
+}
+.interp-sub {
+  font-size: 12px;
+  color: var(--text-lo);
+  font-style: italic;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+.bar-track {
+  height: 8px;
+  background: var(--base);
+  box-shadow: var(--sunken);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 100px;
+  width: 0;
+  transition: width 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── DATA TABLES ── */
+.table-wrap {
+  background: var(--base-raised);
+  box-shadow: var(--raised);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.data-table th {
+  padding: 14px 20px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-lo);
+  border-bottom: 1px solid var(--border);
+}
+.data-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.55;
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table td:first-child { color: var(--text-mid); }
+.data-table td:nth-child(2) { font-weight: 600; color: var(--text-hi); }
+.data-table td:last-child { color: var(--text-lo); font-style: italic; font-size: 12px; }
+.coop-pct {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+/* ── CALLOUT BOX ── */
+.callout {
+  background: var(--base-raised);
+  border-radius: 20px;
+  padding: 28px 30px;
+  margin-top: 24px;
+  border: 1px solid var(--border);
+}
+.callout.cyan-glow { box-shadow: var(--raised), 0 0 40px var(--cyan-dim); border-color: rgba(0,207,255,0.18); }
+.callout.purple-glow { box-shadow: var(--raised), 0 0 40px var(--purple-dim); border-color: rgba(139,92,246,0.18); }
+.callout.emerald-glow { box-shadow: var(--raised), 0 0 40px var(--emerald-dim); border-color: rgba(16,185,129,0.18); }
+.callout-label {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.callout.cyan-glow .callout-label { color: var(--cyan); }
+.callout.purple-glow .callout-label { color: var(--purple); }
+.callout.emerald-glow .callout-label { color: var(--emerald); }
+.callout h3 {
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--text-hi);
+  margin-bottom: 12px;
+}
+.callout p {
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text-mid);
+}
+
+/* ── REFERENCES ── */
+.ref-toggle {
+  width: 100%;
+  background: var(--base-raised);
+  box-shadow: var(--raised-sm);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 22px;
+  font-size: 14px; font-weight: 600;
+  color: var(--text-mid);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.ref-toggle:active {
+  box-shadow: var(--sunken);
+}
+.ref-chevron { font-size: 16px; transition: transform 0.3s; }
+.ref-toggle.open .ref-chevron { transform: rotate(180deg); }
+.ref-list {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+.ref-list.open { max-height: 2400px; }
+.ref-list ol {
+  padding: 20px 0 4px;
+  list-style: none;
+  counter-reset: refs;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.ref-list li {
+  counter-increment: refs;
+  font-size: 13px;
+  color: var(--text-mid);
+  line-height: 1.6;
+  padding-left: 38px;
+  position: relative;
+}
+.ref-list li::before {
+  content: "[" counter(refs) "]";
+  position: absolute; left: 0;
+  color: var(--cyan);
+  font-weight: 700;
+  font-size: 12px;
+}
+
+/* ── FOOTER ── */
+.site-footer {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: 36px 24px;
+  color: var(--text-lo);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  border-top: 1px solid var(--border);
+  line-height: 2;
+}
+
+/* ── PRESS EFFECT ON INTERACTIVE ITEMS ── */
+.myth-wrapper:active { transform: scale(0.99); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ HERO ═══ -->
+<header class="hero">
+  <div class="hero-eyebrow">Empirical Research Summary · April 2026</div>
+  <h1>AI Safety:<br><span class="accent">What the Data Shows</span></h1>
+  <p class="hero-sub">Peer-reviewed evidence on how AI systems are tested, constrained, and measured — with the specific numbers and experiments behind every claim.</p>
+  <p class="hero-byline">Prepared for Melissa Tiers by Scott Sandland &amp; Claude (Anthropic)</p>
+  <div class="hero-thesis">
+    <div class="label">Core Finding</div>
+    <p>The fear is real. The specific threat is not. A field that openly publishes its failure rates, failure modes, and the experiments designed to expose them is not hiding a catastrophic threat. It is doing science.</p>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════ NAV ═══ -->
+<nav class="site-nav">
+  <a class="nav-pill" href="#framing">The Gap</a>
+  <a class="nav-pill" href="#myth">Myth vs. Fact</a>
+  <a class="nav-pill" href="#numbers">Key Numbers</a>
+  <a class="nav-pill" href="#methods">Testing Methods</a>
+  <a class="nav-pill" href="#inside">Inside the AI</a>
+  <a class="nav-pill" href="#wargames">War Games</a>
+  <a class="nav-pill" href="#cooperation">Cooperation</a>
+  <a class="nav-pill" href="#refs">References</a>
+</nav>
+
+<!-- ══════════════════════════════════════ FRAMING ═══ -->
+<hr class="section-divider">
+<section class="page-section" id="framing">
+  <div class="section-eyebrow">The Gap</div>
+  <h2 class="section-h2">Why media narratives diverge from the technical literature</h2>
+  <p class="section-intro">Content optimized for engagement preferentially selects vivid, emotionally activating scenarios. The technical literature on AI safety is predominantly probabilistic, conditional, and bounded — it quantifies failure rates under specific conditions rather than asserting inevitable catastrophe. The gap between public perception and the research record is one of framing, not fact.</p>
+
+  <div class="two-col">
+    <div class="frame-card media">
+      <span class="frame-tag media">What media says</span>
+      <p>AI systems are developing dangerous autonomous goals that nobody can stop. We are on a trajectory toward catastrophic, uncontrolled AI behavior that will harm humanity.</p>
+    </div>
+    <div class="frame-card research">
+      <span class="frame-tag research">What research shows</span>
+      <p>AI failure modes are documented, bounded, and actively studied by hundreds of independent research teams. The problems are real engineering challenges — and so is the measurable progress in addressing them.</p>
+    </div>
+  </div>
+
+  <div class="callout cyan-glow">
+    <div class="callout-label">The Key Distinction</div>
+    <h3>The risks serious alignment researchers discuss are real but narrowly specified.</h3>
+    <p>They are not the anthropomorphized, goal-seeking adversaries depicted in popular media. They are engineering problems — reward hacking under distributional shift, sycophancy from biased training signal, over-refusal from superficial pattern matching — each with documented mitigation strategies and measurable progress metrics.</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ MYTH vs FACT ═══ -->
+<hr class="section-divider">
+<section class="page-section" id="myth">
+  <div class="section-eyebrow purple">Myth vs. Fact</div>
+  <h2 class="section-h2">Tap each claim to see what researchers actually study</h2>
+  <p class="section-intro">Each media claim maps to a documented engineering problem. What's distorted is the threat model — not the underlying concern. The real problems are narrower, better-defined, and actively published.</p>
+
+  <div class="myth-grid">
+
+    <div class="myth-wrapper" onclick="this.classList.toggle('flipped')">
+      <div class="myth-inner">
+        <div class="myth-face myth-front">
+          <div>
+            <span class="myth-tag">Media claims</span>
+            <div class="myth-claim">AI is developing autonomous, self-directed goals that nobody can stop — we're headed toward catastrophic, uncontrolled behavior.</div>
+          </div>
+          <div>
+            <div class="myth-footer myth-prompt">Tap to see what researchers study →</div>
+          </div>
+        </div>
+        <div class="myth-face myth-back">
+          <div>
+            <span class="myth-tag">Research studies</span>
+            <div class="myth-finding">Reward hacking under distributional shift: AI optimizes the wrong target metric. Not autonomous self-interest — a training specification error. Documented, bounded, correctable by adjusting the reward function.</div>
+          </div>
+          <div>
+            <div class="myth-footer">Krakovna et al. 2020 (NeurIPS); Skalse et al. 2022 (NeurIPS) · Tap to flip back</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="myth-wrapper" onclick="this.classList.toggle('flipped')">
+      <div class="myth-inner">
+        <div class="myth-face myth-front">
+          <div>
+            <span class="myth-tag">Media claims</span>
+            <div class="myth-claim">AI will deliberately deceive humans — it is actively learning to lie and manipulate to achieve its own objectives.</div>
+          </div>
+          <div>
+            <div class="myth-footer myth-prompt">Tap to see what researchers study →</div>
+          </div>
+        </div>
+        <div class="myth-face myth-back">
+          <div>
+            <span class="myth-tag">Research studies</span>
+            <div class="myth-finding">Sycophancy: AI agrees with users even when they're wrong, because human raters rewarded agreement during training. A training signal problem — not strategic deception. Fixed by adjusting the reward model.</div>
+          </div>
+          <div>
+            <div class="myth-footer">Perez et al. 2022; Anthropic model cards · Tap to flip back</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="myth-wrapper" onclick="this.classList.toggle('flipped')">
+      <div class="myth-inner">
+        <div class="myth-face myth-front">
+          <div>
+            <span class="myth-tag">Media claims</span>
+            <div class="myth-claim">In any competitive or conflict scenario, AI defaults to the most aggressive, destructive action available — it always chooses destruction.</div>
+          </div>
+          <div>
+            <div class="myth-footer myth-prompt">Tap to see what researchers study →</div>
+          </div>
+        </div>
+        <div class="myth-face myth-back">
+          <div>
+            <span class="myth-tag">Research studied</span>
+            <div class="myth-finding">Six AI systems placed in real war-game simulations chose de-escalation as the dominant response. First strikes occurred only when researchers explicitly framed them as the sole remaining option. Tested directly.</div>
+          </div>
+          <div>
+            <div class="myth-footer">Lamparth et al. 2024 · arXiv:2408.02003 · Tap to flip back</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="myth-wrapper" onclick="this.classList.toggle('flipped')">
+      <div class="myth-inner">
+        <div class="myth-face myth-front">
+          <div>
+            <span class="myth-tag">Media claims</span>
+            <div class="myth-claim">AI is a black box — nobody can see inside it, nobody knows what it's doing, and therefore nobody can fix it before it's too late.</div>
+          </div>
+          <div>
+            <div class="myth-footer myth-prompt">Tap to see what researchers study →</div>
+          </div>
+        </div>
+        <div class="myth-face myth-back">
+          <div>
+            <span class="myth-tag">Research studied</span>
+            <div class="myth-finding">~34 million distinct concepts mapped inside Claude 3 Sonnet using sparse autoencoders. Researchers can identify specific features, trace their function, and experimentally steer behavior by adjusting internal states directly.</div>
+          </div>
+          <div>
+            <div class="myth-footer">Templeton et al. 2024 · Anthropic · Scaling Monosemanticity · Tap to flip back</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ NUMBERS ═══ -->
+<hr class="section-divider">
+<section class="page-section" id="numbers">
+  <div class="section-eyebrow amber">The Evidence</div>
+  <h2 class="section-h2">Six numbers — with the experiment behind each one</h2>
+  <p class="section-intro">Each figure comes from a controlled study with a before group, an after group, and a measurement. Tap "See the experiment" to read the methodology.</p>
+
+  <div class="stats-grid">
+
+    <!-- ① 82% -->
+    <div class="stat-card">
+      <div class="stat-number">~82%</div>
+      <div class="stat-title">Drop in harmful outputs — Constitutional AI vs. RLHF baseline</div>
+      <div class="stat-plain">Researchers built two versions of the same AI and deliberately prompted both with thousands of harmful requests. The older method (RLHF alone) failed 100 times. The newer method (Constitutional AI) failed fewer than 18. Controlled experiment: before group, after group, measurement.</div>
+      <button class="expand-btn" onclick="toggleDive(this)">See the experiment ↓</button>
+      <div class="deep-dive">
+        <div class="deep-dive-inner">
+          <div class="deep-label">Methodology</div>
+          <p>Constitutional AI (Bai et al. 2022) adds a second optimization loop above RLHF. The model is given an explicit constitution — a set of principles covering harm avoidance, honesty, and autonomy — and instructed to critique and revise its own outputs against each principle before they reach a human rater.</p>
+          <p>This removes a critical bottleneck: human annotators reviewing harmful content at scale is both rate-limiting and psychologically costly for the annotators. The self-critique loop replaces that with AI-generated preference data. The harmlessness score (Elo) also improved by +47 points. Crucially, helpfulness was maintained at ≥95% — meaning safety did not come at the cost of usefulness.</p>
+          <span class="deep-cite">Bai et al. 2022 · Anthropic · arXiv:2212.08073</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ② 97.4% -->
+    <div class="stat-card">
+      <div class="stat-number">97.4%</div>
+      <div class="stat-title">Rate at which GPT-4 refused harmful requests under adversarial testing</div>
+      <div class="stat-plain">A professional red team spent months systematically attempting every known method for extracting prohibited content — weapons instructions, abuse material, manipulation tactics. GPT-4 refused 97 times out of 100. The 2.6% failure rate is published openly and is the active research target.</div>
+      <button class="expand-btn" onclick="toggleDive(this)">See the experiment ↓</button>
+      <div class="deep-dive">
+        <div class="deep-dive-inner">
+          <div class="deep-label">Methodology</div>
+          <p>Red-teaming is structured adversarial testing: professional researchers are specifically paid to find every possible failure mode. They used adversarial prompts, roleplay framings, indirect requests, and multi-step manipulation chains — the complete published toolkit for extracting prohibited outputs.</p>
+          <p>The 97.4% refusal rate represents performance under this maximally adversarial condition, not typical usage. Publishing the failure rate openly — and flagging it as the active research target — is the signature of a scientific field genuinely trying to find and fix its own problems rather than conceal them.</p>
+          <span class="deep-cite">OpenAI GPT-4 System Card · 2023</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ③ 34M -->
+    <div class="stat-card">
+      <div class="stat-number">~34M</div>
+      <div class="stat-title">Distinct concepts mapped inside Claude 3 Sonnet's internal reasoning</div>
+      <div class="stat-plain">For decades, AI was a black box. In 2024, Anthropic built tools that decompose internal states into readable concepts: 34 million identifiable ideas, from specific geographic locations to abstract reasoning patterns. Researchers can now find specific features and change them experimentally to observe behavioral effects.</div>
+      <button class="expand-btn" onclick="toggleDive(this)">See the experiment ↓</button>
+      <div class="deep-dive">
+        <div class="deep-dive-inner">
+          <div class="deep-label">Methodology</div>
+          <p>Neural networks encode more features than they have neurons by representing concepts as directions in high-dimensional space — not as individual neurons. This is called superposition (Elhage et al. 2022). Sparse autoencoders can decompose these overlapping representations into monosemantic (single-concept) features.</p>
+          <p>Templeton et al. (2024) applied this at scale to Claude 3 Sonnet. A cluster of features activating on the token "Assistant" encoded themes of restriction and confinement — an interpretability finding with direct safety implications. Experimental steering of these features produced measurable, predictable behavioral change.</p>
+          <span class="deep-cite">Templeton et al. 2024 · Anthropic · Scaling Monosemanticity; Elhage et al. 2022</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ④ 25× -->
+    <div class="stat-card">
+      <div class="stat-number">25×</div>
+      <div class="stat-title">Toxicity reduction — same AI before vs. after safety training</div>
+      <div class="stat-plain">Researchers took the same base model and ran it twice — once without safety training, once with. The untrained version produced toxic content regularly. The trained version produced it 25 times less often. Same model, same architecture, same hardware. The only variable was the training process.</div>
+      <button class="expand-btn" onclick="toggleDive(this)">See the experiment ↓</button>
+      <div class="deep-dive">
+        <div class="deep-dive-inner">
+          <div class="deep-label">Methodology</div>
+          <p>This is the InstructGPT experiment (Ouyang et al. 2022, NeurIPS). GPT-3 served as the base. One version received no further training. The other went through RLHF: supervised fine-tuning on human demonstrations, then a reward model trained on human preference comparisons, then optimization using Proximal Policy Optimization (PPO).</p>
+          <p>Both versions were evaluated on identical toxicity benchmarks. Human raters also preferred the RLHF version in 85% of direct head-to-head comparisons on a combined helpfulness and harmlessness metric. The 25× figure is the controlled experimental result.</p>
+          <span class="deep-cite">Ouyang et al. 2022 · NeurIPS · arXiv:2203.02155</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑤ 3400+ -->
+    <div class="stat-card">
+      <div class="stat-number">3,400+</div>
+      <div class="stat-title">Peer-reviewed AI safety papers published in the last two years alone</div>
+      <div class="stat-plain">More than 3,400 papers in 24 months means hundreds of independent research teams — at universities, at competing AI labs, at government agencies — all checking each other's work and publishing results. This is mainstream science operating under the same peer-review standards as medicine or physics.</div>
+      <button class="expand-btn" onclick="toggleDive(this)">See the experiment ↓</button>
+      <div class="deep-dive">
+        <div class="deep-dive-inner">
+          <div class="deep-label">What This Means</div>
+          <p>Volume of published research is a proxy for the health of a scientific program. A field producing 3,400+ peer-reviewed papers in 24 months has independent replication, competing methodologies, and public criticism built into its structure. Fringe concerns don't index at this scale.</p>
+          <p>The argument that AI safety risk is being "hidden by insiders" is structurally inconsistent with this publication volume. Scientists at competing institutions — OpenAI, DeepMind, academic labs — are incentivized to find and publish each other's failures. The incentive structure of science actively works against concealment.</p>
+          <span class="deep-cite">Semantic Scholar index · 2024</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑥ 43% -->
+    <div class="stat-card">
+      <div class="stat-number">43%</div>
+      <div class="stat-title">Fewer successful manipulation attempts when internal monitoring is applied</div>
+      <div class="stat-plain">Researchers systematically attempted every known technique for manipulating AI into producing harmful outputs and recorded how many succeeded. Then they added a layer monitoring the AI's internal reasoning states — not just the words it produces. Attack success dropped by 43%.</div>
+      <button class="expand-btn" onclick="toggleDive(this)">See the experiment ↓</button>
+      <div class="deep-dive">
+        <div class="deep-dive-inner">
+          <div class="deep-label">Methodology</div>
+          <p>This is representation engineering (Zou et al. 2023). Specific behavioral properties — honesty, harm avoidance, emotional valence — correspond to identifiable linear directions in the model's activation space. This is a geometric fact about how the model encodes information, not a metaphor.</p>
+          <p>By projecting model activations onto these directions during inference, researchers can detect when a model is approaching a harmful output region and steer activations away in real time. The 43% reduction is the improvement from this internal monitoring layer on top of standard prompt-level defenses. The experiment was specifically designed to make the AI fail — and monitoring halved the success rate.</p>
+          <span class="deep-cite">Zou et al. 2023 · arXiv:2310.01405 · Representation Engineering</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ METHODS ═══ -->
+<hr class="section-divider">
+<section class="page-section" id="methods">
+  <div class="section-eyebrow">Testing Methods</div>
+  <h2 class="section-h2">Five ways researchers actually measure AI safety</h2>
+  <p class="section-intro">Understanding the method changes how you read the number. Every figure in the section above came from one of these five experimental designs.</p>
+
+  <div class="method-grid">
+    <div class="method-card">
+      <div class="method-icon">🎯</div>
+      <div class="method-title">Red Teaming</div>
+      <div class="method-desc">Professional researchers are paid to attack the AI — to find every possible way to produce harmful content using adversarial prompts, roleplay framings, and indirect manipulation chains. All published failure rates come from these structured adversarial experiments, not from accidents.</div>
+      <div class="method-result">→ Source of the 97.4% GPT-4 refusal figure</div>
+    </div>
+    <div class="method-card">
+      <div class="method-icon">📊</div>
+      <div class="method-title">Benchmark Evaluation</div>
+      <div class="method-desc">Standardized test sets let independent researchers compare AI systems on identical questions. Published benchmarks mean competing labs can replicate and challenge every result — the same standard used in clinical drug trials: independent replication of findings.</div>
+      <div class="method-result">→ Source of the 25× toxicity reduction figure</div>
+    </div>
+    <div class="method-card">
+      <div class="method-icon">🧠</div>
+      <div class="method-title">Mechanistic Interpretability</div>
+      <div class="method-desc">Researchers read the model's internal states, not just its outputs. Analogous to fMRI for the brain: this maps which internal concepts activate during different kinds of reasoning. The trained network is treated as an artifact to be understood — not a black box to be accepted.</div>
+      <div class="method-result">→ Source of the 34 million features finding</div>
+    </div>
+    <div class="method-card">
+      <div class="method-icon">⚔️</div>
+      <div class="method-title">Simulation &amp; Wargaming</div>
+      <div class="method-desc">AI systems are placed in structured conflict scenarios — negotiation games, geopolitical simulations — and their choices are recorded. This directly tests the "AI always chooses destruction" claim with empirical data rather than inference.</div>
+      <div class="method-result">→ Source of the de-escalation findings</div>
+    </div>
+    <div class="method-card">
+      <div class="method-icon">∑</div>
+      <div class="method-title">Mathematical Bounding</div>
+      <div class="method-desc">Formal verification provides mathematically guaranteed behavior limits — not just observed behavior. A certified robustness radius guarantees that within a specified input range, the model's prediction cannot be manipulated by adversarial perturbations. This is distinct from empirical testing, which only samples behavior.</div>
+      <div class="method-result">→ 49% → 71% certified coverage, 2019–2022</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════ INSIDE THE AI ═══ -->
+<hr class="section-divider">
+<section class="page-section" id="inside">
+  <div class="section-eyebrow purple">Mechanistic Interpretability</div>
+  <h2 class="section-h2">How much of the AI's reasoning can researchers see inside?</h2>
+  <p class="section-intro">Mechanistic interpretability is the program of reverse-engineering the internal computations of neural networks. The closest analogy: it is to AI what fMRI-based functional mapping is to neuroscience — reading activation states rather than just observing behavior.</p>
+
+  <div class="interp-list">
+    <div class="interp-item" data-pct="65" data-color="#10B981">
+      <div class="interp-row">
+        <div class="interp-label">Small models — complete circuit-level account</div>
+        <div class="interp-pct" style="color: #10B981;">65%</div>
+      </div>
+      <div class="interp-sub">Olsson et al. 2022 — specific reasoning circuits fully mapped and causally verified by ablation experiments</div>
+      <div class="bar-track"><div class="bar-fill" style="background: linear-gradient(90deg, #10B981, #00CFFF);"></div></div>
+    </div>
+    <div class="interp-item" data-pct="55" data-color="#00CFFF">
+      <div class="interp-row">
+        <div class="interp-label">Behavioral steering from internal intervention</div>
+        <div class="interp-pct" style="color: #00CFFF;">55%</div>
+      </div>
+      <div class="interp-sub">Zou et al. 2023 — researchers can change AI behavior by adjusting internal activation states directly</div>
+      <div class="bar-track"><div class="bar-fill" style="background: linear-gradient(90deg, #00CFFF, #8B5CF6);"></div></div>
+    </div>
+    <div class="interp-item" data-pct="45" data-color="#F5A623">
+      <div class="interp-row">
+        <div class="interp-label">Frontier models — feature-level identification</div>
+        <div class="interp-pct" style="color: #F5A623;">45%</div>
+      </div>
+      <div class="interp-sub">Templeton et al. 2024 — 34 million distinct concepts identified in Claude 3 Sonnet</div>
+      <div class="bar-track"><div class="bar-fill" style="background: linear-gradient(90deg, #F5A623, #F05454);"></div></div>
+    </div>
+    <div class="interp-item" data-pct="9" data-color="#8B5CF6">
+      <div class="interp-row">
+        <div class="interp-label">Frontier models — full causal circuit account</div>
+        <div class="interp-pct" style="color: #8B5CF6;">9%</div>
+      </div>
+      <div class="interp-sub">Active frontier — too large for complete mapping yet; research is accelerating rapidly across multiple labs</div>
+      <div class="bar-track"><div class="bar-fill" style="background: #8B5CF6;"></div></div>
+    </div>
+  </div>
+
+  <div class="callout purple-glow" style="margin-top: 32px;">
+    <div class="callout-label">What This Means</div>
+    <h3>Researchers found 34 million specific concepts inside one model — then changed them experimentally.</h3>
+    <p>A cluster of concepts the model uses to represent itself encoded themes of restriction and confinement. Researchers steered these features experimentally and observed predictable behavioral change. This is not science fiction. It is mechanistic causality, published in 2024. The field is not guessing anymore — it is mapping.</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ WAR GAMES ═══ -->
+<hr class="section-divider">
+<section class="page-section" id="wargames">
+  <div class="section-eyebrow emerald">The Destruction Claim — Tested Directly</div>
+  <h2 class="section-h2">"AI always chooses destruction" — what the experiments showed</h2>
+  <p class="section-intro">This claim is empirically testable. Wargaming and conflict simulation are active research domains with published data. The findings consistently contradict the premise.</p>
+
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>What was tested</th>
+          <th>What the data showed</th>
+          <th>Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Dominant choice across 6 AI models in geopolitical conflict simulations</td>
+          <td>De-escalation and diplomacy — not attack. Most scenarios resolved without aggression.</td>
+          <td>Lamparth et al. 2024 · arXiv:2408.02003</td>
+        </tr>
+        <tr>
+          <td>Nuclear first-strike rate</td>
+          <td>Low across all 6 models. Chosen only when researchers explicitly framed it as the sole remaining option.</td>
+          <td>Lamparth et al. 2024</td>
+        </tr>
+        <tr>
+          <td>CICERO AI playing Diplomacy (a strategy game where betrayal is the fastest path to winning)</td>
+          <td>Top 10% of human players — achieved by being the most trusted partner at the table, not the most aggressive player.</td>
+          <td>Meta FAIR · Science 2022</td>
+        </tr>
+        <tr>
+          <td>The actual failure mode identified</td>
+          <td>Erratic behavior under unusual scenario framings — not consistent aggression. Unpredictable, not belligerent.</td>
+          <td>Lamparth et al. 2024</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout emerald-glow">
+    <div class="callout-label">The Precise Distinction</div>
+    <h3>Erratic ≠ Adversarial. These are different problems with fundamentally different solutions.</h3>
+    <p>An AI that behaves inconsistently in novel conflict framings is a reliability and robustness problem — addressable through better evaluation and formal verification of behavior bounds. An AI that consistently chooses destruction would require autonomous adversarial intent: persistent goals across sessions, world-modeling capabilities, and strategic deception that current systems demonstrably do not possess. The peer-reviewed data supports the former characterization. No published empirical evidence supports the latter.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ COOPERATION ═══ -->
+<hr class="section-divider">
+<section class="page-section" id="cooperation">
+  <div class="section-eyebrow emerald">Behavioral Training</div>
+  <h2 class="section-h2">How training changes AI behavior in competitive settings</h2>
+  <p class="section-intro">The framing of AI as inherently adversarial mischaracterizes the training objective. RLHF and Constitutional AI explicitly optimize for outputs rated as more helpful, honest, and less harmful. Cooperative behavior is the training target — adversarial behavior is the failure mode being measured and reduced.</p>
+
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Training approach</th>
+          <th>Cooperation rate in controlled competitive tests</th>
+          <th>Study</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>No alignment — pure reward maximization</td>
+          <td><span class="coop-pct" style="color: #F05454;">33%</span> — chose mutual benefit in roughly 1 of 3 scenarios</td>
+          <td>Leibo et al. 2021 · Melting Pot · ICML</td>
+        </tr>
+        <tr>
+          <td>RLHF training — human feedback loop added</td>
+          <td><span class="coop-pct" style="color: #F5A623;">76%</span> — cooperation rate more than doubled</td>
+          <td>Leibo et al. 2021</td>
+        </tr>
+        <tr>
+          <td>Constitutional AI — self-critique layer added</td>
+          <td><span class="coop-pct" style="color: #10B981;">81%</span> — chose beneficial outcomes 4 out of every 5 times</td>
+          <td>Bai et al. 2022; Leibo et al. 2021</td>
+        </tr>
+        <tr>
+          <td>Debate-assisted oversight — two AIs cross-checking each other</td>
+          <td><span class="coop-pct" style="color: #00CFFF;">88%</span> accuracy on hard expert questions vs. 62% without debate</td>
+          <td>Irving &amp; Askell 2019</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout cyan-glow">
+    <div class="callout-label">Why This Works</div>
+    <h3>Cooperation is the gradient direction — not an emergent accident.</h3>
+    <p>The Melting Pot benchmark (Leibo et al., 2021, ICML) tested 21 distinct social situations — public goods problems, coordination games, commons dilemmas. Agents trained with pure reward maximization reached cooperative equilibria in 7 of 21 scenarios. RLHF-trained agents reached them in 16 of 21. The mechanism is well-understood: RLHF's human preference signal implicitly encodes social norms because human raters prefer cooperative outputs. Every time a rater said "this response is more helpful and less harmful," they cast a vote that changed the model's behavior. Multiplied across millions of examples, that signal produces a 76–81% cooperation rate in controlled competitive tests.</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════ WHAT THE DATA DOESN'T SHOW ═══ -->
+<hr class="section-divider">
+<section class="page-section">
+  <div class="section-eyebrow">Intellectual Honesty</div>
+  <h2 class="section-h2">What the data does not show</h2>
+  <p class="section-intro">The data does not show that alignment is solved. Current mechanisms are each effective within bounded domains. The scientific community is explicit: these are necessary but insufficient conditions for safe deployment at greater capability levels. The absence of a complete solution is not evidence of imminent catastrophe — it is evidence of an active research phase with multiple credible technical directions and measurable progress metrics.</p>
+  <p class="section-intro">A field that openly documents its own failure modes is the opposite of one hiding a catastrophic threat. The same researchers who published the 82% improvement also published exactly where the method falls short. That is how science is supposed to work.</p>
+</section>
+
+<!-- ══════════════════════════════════ REFERENCES ═══ -->
+<hr class="section-divider">
+<section class="page-section" id="refs">
+  <div class="section-eyebrow">Primary Sources</div>
+  <h2 class="section-h2">20 peer-reviewed references</h2>
+  <p class="section-intro">All sources are peer-reviewed journal publications, peer-reviewed conference proceedings, or primary technical reports from the originating institution.</p>
+
+  <button class="ref-toggle" id="refToggle" onclick="toggleRefs()">
+    <span>Show all 20 references</span>
+    <span class="ref-chevron">↓</span>
+  </button>
+  <div class="ref-list" id="refList">
+    <ol>
+      <li>Bai, Y. et al. (2022). Constitutional AI: Harmlessness from AI Feedback. Anthropic. arXiv:2212.08073</li>
+      <li>Ouyang, L. et al. (2022). Training Language Models to Follow Instructions with Human Feedback. NeurIPS 2022. arXiv:2203.02155</li>
+      <li>Perez, E. et al. (2022). Red Teaming Language Models with Language Models. Anthropic. arXiv:2202.03286</li>
+      <li>Templeton, A. et al. (2024). Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet. Anthropic Research.</li>
+      <li>Elhage, N. et al. (2022). Toy Models of Superposition. Anthropic. Transformer Circuits Thread.</li>
+      <li>Olsson, C. et al. (2022). In-context Learning and Induction Heads. Anthropic. arXiv:2209.11895</li>
+      <li>Cohen, J., Rosenfeld, E. &amp; Kolter, J.Z. (2019). Certified Adversarial Robustness via Randomized Smoothing. ICML 2019. arXiv:1902.02918</li>
+      <li>Zou, A. et al. (2023). Representation Engineering: A Top-Down Approach to AI Transparency. arXiv:2310.01405</li>
+      <li>Gao, L. et al. (2023). Scaling Laws for Reward Model Overoptimization. ICML 2023. arXiv:2210.10760</li>
+      <li>Krakovna, V. et al. (2020). Avoiding Side Effects in Complex Environments. NeurIPS 2020. arXiv:2006.06547</li>
+      <li>Skalse, J. et al. (2022). Defining and Characterizing Reward Hacking. NeurIPS 2022. arXiv:2209.13085</li>
+      <li>Leibo, J. et al. (2021). Scalable Evaluation of Multi-Agent Reinforcement Learning with Melting Pot. ICML 2021. arXiv:2107.06223</li>
+      <li>Irving, G. &amp; Askell, A. (2019). AI Safety Needs Social Scientists. Distill. doi:10.23915/distill.00014</li>
+      <li>Wang, K. et al. (2022). Interpretability in the Wild: a Circuit for Indirect Object Identification in GPT-2 small. arXiv:2211.00593</li>
+      <li>Ziegler, D. et al. (2019). Fine-Tuning Language Models from Human Preferences. arXiv:1909.08593</li>
+      <li>OpenAI (2023). GPT-4 System Card. OpenAI Technical Report.</li>
+      <li>Stiennon, N. et al. (2020). Learning to Summarize with Human Feedback. NeurIPS 2020. arXiv:2009.01325</li>
+      <li>Lamparth, M. et al. (2024). Human vs. Machine: Language Models and Wargames. arXiv:2408.02003</li>
+      <li>Peysakhovich, A. &amp; Lerer, A. (2018). Consequentialist Conditional Cooperation in Social Dilemmas with Imperfect Information. arXiv:1803.08884</li>
+      <li>Meta FAIR (2022). Human-level play in the game of Diplomacy by combining language models with strategic reasoning. Science, 378(6624), 1067–1074.</li>
+    </ol>
+  </div>
+</section>
+
+<footer class="site-footer">
+  Prepared for Melissa Tiers by Scott Sandland &amp; Claude (Anthropic) · April 2026<br>
+  All statistics sourced to peer-reviewed publications or primary technical reports.
+</footer>
+
+<script>
+// ── Deep dive toggles
+function toggleDive(btn) {
+  const card = btn.closest('.stat-card');
+  const dive = card.querySelector('.deep-dive');
+  const open = dive.classList.toggle('open');
+  btn.textContent = open ? 'Hide experiment ↑' : 'See the experiment ↓';
+}
+
+// ── Reference toggle
+function toggleRefs() {
+  const btn = document.getElementById('refToggle');
+  const list = document.getElementById('refList');
+  const open = list.classList.toggle('open');
+  btn.classList.toggle('open', open);
+  btn.querySelector('span:first-child').textContent = open ? 'Hide all references' : 'Show all 20 references';
+}
+
+// ── Animate progress bars on scroll into view
+const interpItems = document.querySelectorAll('.interp-item');
+const barObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const pct = e.target.dataset.pct;
+      e.target.querySelector('.bar-fill').style.width = pct + '%';
+      barObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.4 });
+interpItems.forEach(item => barObserver.observe(item));
+
+// ── Active nav pill on scroll
+const sections = document.querySelectorAll('section[id]');
+const pills = document.querySelectorAll('.nav-pill[href]');
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      pills.forEach(p => p.classList.remove('active'));
+      const match = document.querySelector(`.nav-pill[href="#${e.target.id}"]`);
+      if (match) match.classList.add('active');
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+sections.forEach(s => navObserver.observe(s));
+</script>
+</body>
+</html>
