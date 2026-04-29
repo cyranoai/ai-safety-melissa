@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>AI Safety: What the Research Shows · For Melissa Tiers</title>
+<title>AI: Safety &amp; Ecology · Irish Hypnosis Conference · April 2026</title>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -609,24 +609,47 @@ body::after {
 
 /* ── PRESS EFFECT ON INTERACTIVE ITEMS ── */
 .myth-wrapper:active { transform: scale(0.99); }
+
+/* ── NAV GROUP LABELS ── */
+.nav-group-label {
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-lo);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 6px 0 2px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.nav-sep {
+  width: 1px;
+  height: 18px;
+  background: var(--border);
+  margin: 0 6px;
+  flex-shrink: 0;
+  align-self: center;
+}
 </style>
 </head>
 <body>
 
 <!-- ═══════════════════════════════════════════ HERO ═══ -->
 <header class="hero">
-  <div class="hero-eyebrow">Empirical Research Summary · April 2026</div>
-  <h1>AI Safety:<br><span class="accent">What the Data Shows</span></h1>
-  <p class="hero-sub">Peer-reviewed evidence on how AI systems are tested, constrained, and measured — with the specific numbers and experiments behind every claim.</p>
-  <p class="hero-byline">Prepared for Melissa Tiers by Scott Sandland &amp; Claude (Anthropic)</p>
+  <div class="hero-eyebrow">Irish Hypnosis Conference · April 2026</div>
+  <h1>AI: Safety<br><span class="accent">&amp; Ecology</span></h1>
+  <p class="hero-sub">Evidence-based answers to questions raised by hypnotists at the Irish Hypnosis Conference — on how AI is tested and constrained, and what its real environmental footprint actually looks like.</p>
+  <p class="hero-byline">By Scott Sandland &amp; Claude (Anthropic)</p>
   <div class="hero-thesis">
     <div class="label">Core Finding</div>
-    <p>The fear is real. The specific threat is not. A field that openly publishes its failure rates, failure modes, and the experiments designed to expose them is not hiding a catastrophic threat. It is doing science.</p>
+    <p>The safety fear is real. The catastrophic threat is not. And the environmental footprint — real, measured, and shrinking — is smaller than a single fast-food company's supply chain. A field that openly publishes its failure rates and its per-message energy costs is not hiding a crisis. It is doing science.</p>
   </div>
 </header>
 
 <!-- ══════════════════════════════════════════ NAV ═══ -->
 <nav class="site-nav">
+  <span class="nav-group-label">Safety</span>
   <a class="nav-pill" href="#framing">The Gap</a>
   <a class="nav-pill" href="#myth">Myth vs. Fact</a>
   <a class="nav-pill" href="#numbers">Key Numbers</a>
@@ -634,6 +657,13 @@ body::after {
   <a class="nav-pill" href="#inside">Inside the AI</a>
   <a class="nav-pill" href="#wargames">War Games</a>
   <a class="nav-pill" href="#cooperation">Cooperation</a>
+  <div class="nav-sep"></div>
+  <span class="nav-group-label">Ecology</span>
+  <a class="nav-pill" href="#per-message">Per Message</a>
+  <a class="nav-pill" href="#vs-industry">vs. Industry</a>
+  <a class="nav-pill" href="#chips">Chip Progress</a>
+  <a class="nav-pill" href="#water">Water</a>
+  <div class="nav-sep"></div>
   <a class="nav-pill" href="#refs">References</a>
 </nav>
 
@@ -1077,7 +1107,7 @@ body::after {
   <p class="section-intro">All sources are peer-reviewed journal publications, peer-reviewed conference proceedings, or primary technical reports from the originating institution.</p>
 
   <button class="ref-toggle" id="refToggle" onclick="toggleRefs()">
-    <span>Show all 20 references</span>
+    <span>Show all 26 references</span>
     <span class="ref-chevron">↓</span>
   </button>
   <div class="ref-list" id="refList">
@@ -1102,12 +1132,241 @@ body::after {
       <li>Lamparth, M. et al. (2024). Human vs. Machine: Language Models and Wargames. arXiv:2408.02003</li>
       <li>Peysakhovich, A. &amp; Lerer, A. (2018). Consequentialist Conditional Cooperation in Social Dilemmas with Imperfect Information. arXiv:1803.08884</li>
       <li>Meta FAIR (2022). Human-level play in the game of Diplomacy by combining language models with strategic reasoning. Science, 378(6624), 1067–1074.</li>
+      <li>Google (2025). Google Environmental Report 2025. Google LLC. [Covering 2024 operations — data centre emissions, water use, and restoration.]</li>
+      <li>Google (2025). Measuring the environmental impact of AI compute. Google Technical Report, Aug 2025. [Per-message electricity, water, and carbon figures for Gemini.]</li>
+      <li>Lund, M. et al. (2024). The carbon footprint of global private jet travel. Communications Earth &amp; Environment, 5, 656. doi:10.1038/s43247-024-01724-6</li>
+      <li>ICCT (2025). International Council on Clean Transportation — private aviation emissions update, June 2025.</li>
+      <li>McDonald's Corporation (2024). McDonald's 2024 ESG Report. [Total Scope 1, 2, 3 emissions: 60.2 Mt CO₂e.]</li>
+      <li>International Energy Agency (2023). Aviation. IEA Tracking Clean Energy Progress. [Commercial aviation: ~915 Mt CO₂ per year.]</li>
     </ol>
   </div>
 </section>
 
+<!-- ══════════════════════════════════ PER MESSAGE ═══ -->
+<hr class="section-divider">
+<section class="page-section" id="per-message">
+  <div class="section-eyebrow emerald">Energy &amp; Ecology</div>
+  <h2 class="section-h2">What one AI message actually uses</h2>
+  <p class="section-intro">The full measured cost — electricity, water, and carbon — of a single Gemini AI response. Google's 2025 report is the first time any major AI company published this with a complete, independently verifiable methodology.</p>
+
+  <div class="two-col" style="margin-bottom:28px;">
+    <div class="stat-card">
+      <div class="stat-number" style="background:linear-gradient(135deg,var(--cyan),var(--emerald));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">0.24 Wh</div>
+      <div class="stat-title">Electricity — per AI message</div>
+      <div class="stat-plain">Running your microwave for one second uses this much electricity. So does watching television for nine seconds. That is the full measured cost of one Gemini AI response — computers, cooling, backup systems, and all building overhead included.</div>
+      <div style="font-size:12px;color:var(--text-lo);font-style:italic;margin-top:12px;">Google measurement report, Aug 2025 · MIT Technology Review</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" style="background:linear-gradient(135deg,var(--emerald),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">5 drops</div>
+      <div class="stat-title">Water — per AI message</div>
+      <div class="stat-plain">0.26 millilitres — about five drops — cools the computer that answers your question. Brewing one cup of coffee uses roughly 200 millilitres. You could send 770 AI messages for the water cost of a single cup of coffee.</div>
+      <div style="font-size:12px;color:var(--text-lo);font-style:italic;margin-top:12px;">Google measurement report, Aug 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" style="background:linear-gradient(135deg,var(--purple),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">0.03 g</div>
+      <div class="stat-title">Carbon — per AI message</div>
+      <div class="stat-plain">Driving a car one mile produces about 400 grams of CO₂. One AI message produces 0.03 grams. You would need to send 13,000 messages to produce the same carbon as a single mile driven.</div>
+      <div style="font-size:12px;color:var(--text-lo);font-style:italic;margin-top:12px;">Google measurement report, Aug 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" style="background:linear-gradient(135deg,var(--amber),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">~10×</div>
+      <div class="stat-title">vs. a Google Search</div>
+      <div class="stat-plain">A Google Search uses roughly 10 times less electricity than an AI response. That sounds alarming — until you know a Google Search uses about the same energy as blinking your eyes. Ten times almost nothing is still almost nothing.</div>
+      <div style="font-size:12px;color:var(--text-lo);font-style:italic;margin-top:12px;">IEA estimate; Google, 2025</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ VS. INDUSTRY ═══ -->
+<hr class="section-divider">
+<section class="page-section" id="vs-industry">
+  <div class="section-eyebrow amber">Industry Comparison</div>
+  <h2 class="section-h2">The five US frontier AI labs — what they each disclose</h2>
+  <p class="section-intro">A direct comparison across labs hits an immediate problem: no AI company publishes its AI-specific carbon total. They report their whole company's emissions. Since Google, Meta, and OpenAI also run search engines, social networks, and cloud businesses, their total company number is larger than just their AI footprint. The table below uses the best available published data — and is honest about what each lab has and hasn't told the public.</p>
+
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:16%">Lab</th>
+          <th style="width:22%">What they've published</th>
+          <th style="width:18%">The number</th>
+          <th style="width:26%">What you should know</th>
+          <th style="width:18%">Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--emerald);font-weight:700;">Google (Gemini)</td>
+          <td>Full per-query breakdown: electricity, water, carbon. Annual company emissions report.</td>
+          <td style="color:var(--emerald);font-weight:700;">0.03 g CO₂ per message · 11.5 Mt total company</td>
+          <td>Most transparent of any lab. Data centre emissions fell 12% in 2024 while AI use grew 27%. 66% of energy from clean sources.</td>
+          <td>Google technical paper Aug 2025; Google 2025 Environmental Report</td>
+        </tr>
+        <tr>
+          <td style="color:var(--cyan);font-weight:700;">Meta (Llama)</td>
+          <td>Annual total company emissions. No per-query figure published.</td>
+          <td style="color:var(--cyan);font-weight:700;">14 Mt total company (2023)</td>
+          <td>Emissions more than doubled since 2019 due to AI data centre growth. 100% renewable energy claimed via certificates, but this doesn't mean clean power in real time.</td>
+          <td>Meta 2024 Sustainability Report</td>
+        </tr>
+        <tr>
+          <td style="color:var(--amber);font-weight:700;">OpenAI (ChatGPT)</td>
+          <td>CEO stated per-query electricity figure in a blog post. No full carbon report.</td>
+          <td style="color:var(--amber);font-weight:700;">0.34 Wh per query · total carbon not disclosed</td>
+          <td>Sam Altman published the per-query electricity number in 2025, but OpenAI has released no annual carbon report. Total company emissions unknown.</td>
+          <td>Sam Altman blog post, 2025; Epoch AI</td>
+        </tr>
+        <tr>
+          <td style="color:var(--text-mid);font-weight:700;">Anthropic (Claude)</td>
+          <td>No public emissions disclosure of any kind as of April 2026.</td>
+          <td style="color:var(--text-mid);font-weight:700;">Not disclosed</td>
+          <td>Anthropic has published no Scope 1, 2, or 3 emissions data. Runs on cloud infrastructure (AWS, Google Cloud) and states it works with providers that prioritise clean energy.</td>
+          <td>Earth911 research, March 2026</td>
+        </tr>
+        <tr>
+          <td style="color:var(--red);font-weight:700;">xAI (Grok)</td>
+          <td>No annual report. Training cost estimated by independent researchers.</td>
+          <td style="color:var(--red);font-weight:700;">~154,000 t CO₂ for Grok 4 training alone</td>
+          <td>xAI's Memphis data centre ran 33 gas turbines for months without air pollution permits, in a predominantly Black neighbourhood already burdened with industrial pollution. No clean energy commitments published.</td>
+          <td>Epoch AI, Sept 2025; Time, Aug 2025; Southern Environmental Law Center</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout purple-glow" style="margin-bottom:32px;">
+    <div class="callout-label">Transparency Note</div>
+    <h3>The labs are not equally comparable — because they disclose different things.</h3>
+    <p>Google's number looks largest partly because it's the most complete. The absence of a number from OpenAI or Anthropic does not mean their footprint is small — it means they haven't said. The xAI situation is different in kind, not just degree: it involves documented permit violations and a facility sited in an environmental justice community.</p>
+  </div>
+
+  <h3 style="font-size:clamp(20px,3.5vw,28px);font-weight:800;line-height:1.2;letter-spacing:-0.02em;color:var(--text-hi);margin-bottom:16px;">How all five labs together compare to other industries</h3>
+  <p class="section-intro">Adding up what is known: the five labs' total disclosed company carbon is roughly 25–30 million metric tonnes per year — and that includes all their non-AI operations. Everything below uses the same unit so you can read across the rows fairly.</p>
+
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:30%">Activity / industry</th>
+          <th style="width:16%">CO₂ per year</th>
+          <th style="width:34%">What that looks like</th>
+          <th style="width:20%">Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--emerald);font-weight:600;">✦ All 5 frontier AI labs combined — entire company emissions</td>
+          <td style="color:var(--emerald);font-weight:700;">~25–30 Mt est.</td>
+          <td>This is the ceiling — total company carbon including search, social media, cloud services, and everything else, not just AI. The AI-specific share is a fraction of this. And Google's portion is actively shrinking.</td>
+          <td>Google, Meta published reports; OpenAI, Anthropic, xAI figures estimated or undisclosed</td>
+        </tr>
+        <tr>
+          <td>Private jet industry — worldwide</td>
+          <td style="color:var(--red);font-weight:700;">19.5 Mt</td>
+          <td>Serves 256,000 people — 0.003% of the world's population. Emissions grew 46% in five years. No efficiency trend. Comparable in scale to the entire AI industry's carbon output, serving a fraction of a fraction of the users.</td>
+          <td>Communications Earth &amp; Environment, Nov 2024 (peer-reviewed); ICCT, June 2025</td>
+        </tr>
+        <tr>
+          <td>McDonald's — full global operation</td>
+          <td style="color:var(--amber);font-weight:700;">60.2 Mt</td>
+          <td>One fast-food chain produces twice the carbon of all five frontier AI labs combined — and that's the ceiling number for the labs. The AI-specific share makes the gap even larger.</td>
+          <td>McDonald's 2024 ESG Report</td>
+        </tr>
+        <tr>
+          <td>All commercial aviation — every flight on earth</td>
+          <td style="color:var(--amber);font-weight:700;">~915 Mt</td>
+          <td>Every commercial passenger flight on the planet, combined, for one year. About 30–35 times the ceiling estimate for all five AI labs.</td>
+          <td>International Energy Agency, 2023</td>
+        </tr>
+        <tr>
+          <td>Global beef production — all countries</td>
+          <td style="color:var(--red);font-weight:700;">~3,100 Mt</td>
+          <td>Beef alone produces more carbon than all aviation combined — and roughly 100–125 times the ceiling estimate for all five AI labs. From one food category. No one is calling it a crisis.</td>
+          <td>FAO; IPCC Sixth Assessment Report; Oxford University</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:13px;color:var(--text-lo);font-style:italic;line-height:1.6;margin-top:8px;">The ~25–30 Mt combined estimate uses Google's published 11.5 Mt, Meta's published 14 Mt, and small estimates for the remaining three labs. OpenAI, Anthropic, and xAI have not published full emissions reports. The comparison is intentionally conservative — treating the labs' total company carbon as if it were entirely from AI.</p>
+</section>
+
+<!-- ══════════════════════════════════ CHIP PROGRESS ═══ -->
+<hr class="section-divider">
+<section class="page-section" id="chips">
+  <div class="section-eyebrow">Hardware Progress</div>
+  <h2 class="section-h2">Why the footprint keeps shrinking: seven years of chip improvements</h2>
+  <p class="section-intro">Google builds its own chips for AI — called TPUs. Think of them as highly specialised calculators built for one job. Each new generation does the same work using less electricity. Here is the full arc from 2018 to the chip announced this week at Google Cloud Next '26.</p>
+
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:26%">Chip name</th>
+          <th style="width:14%">Year</th>
+          <th style="width:40%">What it means in plain language</th>
+          <th style="width:20%">Efficiency vs. 2018</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1st gen (Cloud TPU v2)</td>
+          <td>2018</td>
+          <td>The starting point. This is what the very first AI chip could do.</td>
+          <td>1× — the baseline</td>
+        </tr>
+        <tr>
+          <td>6th gen (Trillium)</td>
+          <td>2024</td>
+          <td>67% more efficient than the previous generation — like going from a car that gets 20 mpg to one that gets 33 mpg.</td>
+          <td style="color:var(--emerald);font-weight:700;">~15×</td>
+        </tr>
+        <tr>
+          <td>7th gen (Ironwood)</td>
+          <td>2025</td>
+          <td>Twice as efficient as Trillium. The same AI task that needed 30 watts of power in 2018 now needs 1 watt. Google confirmed a 3.7× carbon efficiency improvement over the previous chip.</td>
+          <td style="color:var(--emerald);font-weight:700;">~30×</td>
+        </tr>
+        <tr>
+          <td style="color:var(--cyan);font-weight:600;">8th gen (TPU 8t + 8i) 🆕</td>
+          <td style="color:var(--cyan);">Apr 2026</td>
+          <td>For the first time, Google split its chip into two: <strong>8t</strong> for building AI models (like construction), and <strong>8i</strong> for answering questions (like customer service). A specialist does each job more efficiently than a generalist. The question-answering chip delivers 80% better output per dollar. Both chips use twice the electricity of Ironwood to do the same amount of work — meaning you get twice the AI for the same power bill.</td>
+          <td style="color:var(--cyan);font-weight:700;">~60×</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout cyan-glow" style="margin-top:8px;">
+    <div class="callout-label">Software Efficiency</div>
+    <h3>33× — energy cost drop in a single year, through smarter software alone.</h3>
+    <p>On top of chip improvements, the energy cost of one AI response dropped 33-fold — May 2024 to May 2025 — through smarter software: better ways of breaking questions into pieces, smaller models handling simple tasks, more efficient ways of sending answers back. The carbon footprint dropped 44-fold in the same year. With 8th-gen chips not yet fully deployed, this trend has not peaked.</p>
+    <p style="font-size:12px;color:var(--text-lo);font-style:italic;margin-top:12px;">Google technical paper, Aug 2025 · MIT Technology Review</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ WATER ═══ -->
+<hr class="section-divider">
+<section class="page-section" id="water">
+  <div class="section-eyebrow purple">Water Use</div>
+  <h2 class="section-h2">The water question — with the part media coverage usually skips</h2>
+
+  <div class="callout purple-glow">
+    <div class="callout-label">The full picture</div>
+    <h3>6.1 billion gallons — and the context that changes what it means.</h3>
+    <p>Google's data centres used 6.1 billion gallons of water for cooling in 2023. That number is real and worth knowing. Here is what usually gets left out: water cooling is used specifically because it uses less electricity than air cooling. Every gallon of water traded saves more carbon than it costs. In 2024, Google gave back 4.5 billion gallons through water restoration projects — covering 64% of what it used, up from just 18% the year before. Its target: give back 120% of all water used by 2030.</p>
+    <p style="font-size:12px;color:var(--text-lo);font-style:italic;margin-top:12px;">Google 2025 Environmental Report (covering 2024 operations)</p>
+  </div>
+
+  <div class="callout emerald-glow" style="margin-top:24px;">
+    <div class="callout-label">Bottom Line</div>
+    <h3>All five frontier AI labs combined produce roughly the same carbon as the private jet industry — serving billions of people vs. 256,000.</h3>
+    <p>The entire estimated carbon footprint of Google, Meta, OpenAI, Anthropic, and xAI combined — counting each company's total operations, not just AI — is roughly 25–30 million metric tonnes per year. Private jets produce 19.5 million serving 0.003% of the world's population. McDonald's alone produces 60 million. All commercial aviation produces 915 million. Global beef production produces 3,100 million. Meanwhile, Google's individual AI chip announced this week is 60× more efficient than the 2018 baseline, and the energy cost of one AI response dropped 33-fold in a single year. The concern is legitimate. The scale, compared to what goes unquestioned every day, is not what the data shows.</p>
+  </div>
+</section>
+
 <footer class="site-footer">
-  Prepared for Melissa Tiers by Scott Sandland &amp; Claude (Anthropic) · April 2026<br>
+  By Scott Sandland &amp; Claude (Anthropic) · Irish Hypnosis Conference · April 2026<br>
   All statistics sourced to peer-reviewed publications or primary technical reports.
 </footer>
 
@@ -1126,7 +1385,7 @@ function toggleRefs() {
   const list = document.getElementById('refList');
   const open = list.classList.toggle('open');
   btn.classList.toggle('open', open);
-  btn.querySelector('span:first-child').textContent = open ? 'Hide all references' : 'Show all 20 references';
+  btn.querySelector('span:first-child').textContent = open ? 'Hide all references' : 'Show all 26 references';
 }
 
 // ── Animate progress bars on scroll into view
